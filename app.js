@@ -37,9 +37,9 @@ function escapeHtml(value){return String(value).replace(/[&<>"']/g,c=>({'&':'&am
 
 async function loadNews(){
   renderNews(fallbackNews);
-  if(!window.supabaseClient) return;
+  if(!window.acsadSupabase) return;
   try{
-    const {data,error}=await window.supabaseClient.from('articles').select('headline,category,body,image_url,published_at').order('published_at',{ascending:false}).limit(20);
+    const {data,error}=await window.acsadSupabase.from('articles').select('headline,category,body,image_url,published_at').order('published_at',{ascending:false}).limit(20);
     if(error) throw error;
     if(data&&data.length){
       renderNews(data.map(article=>({headline:article.headline,category:article.category,body:article.body,icon:article.image_url?'🖼️':'📰'})));
