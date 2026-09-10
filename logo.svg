@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 260" role="img" aria-labelledby="title desc">
+<title id="title">ACSAD logo</title><desc id="desc">Bold blue and white ACSAD school sports media logo.</desc>
+<defs><linearGradient id="blue" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1478ff"/><stop offset="1" stop-color="#004bd6"/></linearGradient></defs>
+<rect width="900" height="260" rx="28" fill="#101820"/>
+<g transform="translate(30 25)">
+  <path fill="#fff" d="M105 190 175 20h52l72 170h-48l-16-43h-68l-16 43zm76-87h39l-19-51z"/>
+  <path fill="url(#blue)" d="M52 151c43-55 111-91 202-104-60 22-101 52-124 88 36-18 78-27 126-25-55 16-101 43-137 76-22-6-45-17-67-35z"/>
+  <path fill="#1478ff" d="M72 177c62-35 134-51 217-47-67 10-123 29-168 57z"/>
+</g>
+<text x="360" y="139" fill="#fff" font-family="Arial,Helvetica,sans-serif" font-size="92" font-weight="900" font-style="italic" letter-spacing="5">ACSAD</text>
+<text x="365" y="190" fill="#1478ff" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" letter-spacing="7">SCHOOL SPORTS MEDIA</text>
+<path d="M365 207h450" stroke="#1478ff" stroke-width="3"/><path d="M335 207h20" stroke="#1478ff" stroke-width="3"/>
+</svg>
