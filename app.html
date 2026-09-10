@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#101010">
+  <title>ACSAD App</title>
+  <link rel="stylesheet" href="app.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="app-header">
+      <div>
+        <div class="brand">ACSAD<b>.</b></div>
+        <div class="tag">ALKIMOS COLLEGE SPORT</div>
+      </div>
+      <span class="sync">WEB FIRST</span>
+    </header>
+
+    <main id="app-content" class="app-content">
+      <section class="app-page active" data-page="results">
+        <div class="page-heading"><div><span class="eyebrow">LATEST</span><h1>Results</h1></div></div>
+        <div id="results-list" class="stack"></div>
+      </section>
+
+      <section class="app-page" data-page="fixtures">
+        <div class="page-heading"><div><span class="eyebrow">UPCOMING</span><h1>Fixtures</h1></div></div>
+        <div id="fixtures-list" class="stack"></div>
+      </section>
+
+      <section class="app-page" data-page="news">
+        <div class="page-heading"><div><span class="eyebrow">ACSAD NEWS DESK</span><h1>News</h1></div></div>
+        <div id="news-list" class="stack"></div>
+      </section>
+
+      <section class="app-page" data-page="replays">
+        <div class="page-heading"><div><span class="eyebrow">VIDEO</span><h1>Replays</h1></div></div>
+        <div class="empty-card"><div class="empty-icon">▶</div><h2>Replays</h2><p>Approved match recordings and highlights will appear here.</p></div>
+      </section>
+
+      <section class="app-page" data-page="more">
+        <div class="page-heading"><div><span class="eyebrow">ACSAD</span><h1>More</h1></div></div>
+        <div class="more-grid">
+          <button class="more-card" data-open-page="home">🏠<strong>Home</strong><span>ACSAD overview</span></button>
+          <button class="more-card" data-open-page="records">🏆<strong>Records</strong><span>School sports records</span></button>
+          <button class="more-card" data-open-page="carnival">🏃<strong>Carnival</strong><span>Faction carnival coverage</span></button>
+          <button class="more-card" data-open-page="fame">🎮<strong>FAME Gaming</strong><span>Gaming coverage</span></button>
+        </div>
+        <div class="info-card"><strong>ACSAD</strong><p>Independent school sports media and statistics platform.</p><a href="index.html">Open website →</a></div>
+      </section>
+
+      <section class="app-page" data-page="home"><div class="page-heading"><div><span class="eyebrow">ACSAD • SCHOOL SPORTS MEDIA</span><h1>Alkimos College Sport</h1></div></div><div class="hero-card"><span>WEB FIRST</span><h2>The website gets updates first.</h2><p>The app reads the same ACSAD data so the latest coverage can follow automatically.</p><a href="index.html">Visit ACSAD website →</a></div></section>
+      <section class="app-page" data-page="records"><div class="page-heading"><div><span class="eyebrow">DATABASE</span><h1>Records</h1></div></div><div class="empty-card"><div class="empty-icon">🏆</div><h2>Records</h2><p>The ACSAD record database will appear here.</p></div></section>
+      <section class="app-page" data-page="carnival"><div class="page-heading"><div><span class="eyebrow">FACTION CARNIVAL</span><h1>Carnival</h1></div></div><div class="hero-card"><span>2026</span><h2>Socrates crowned champions</h2><p>Green won the 2026 high-school faction carnival by around 300 points.</p><a href="carnival.html">Open carnival coverage →</a></div></section>
+      <section class="app-page" data-page="fame"><div class="page-heading"><div><span class="eyebrow">GAMING</span><h1>FAME Gaming</h1></div></div><div class="empty-card"><div class="empty-icon">🎮</div><h2>FAME Gaming</h2><p>Gaming coverage will appear here.</p></div></section>
+    </main>
+
+    <nav class="bottom-nav" aria-label="Main navigation">
+      <button class="nav-item active" data-page="results"><span>📊</span><small>Results</small></button>
+      <button class="nav-item" data-page="fixtures"><span>📅</span><small>Fixtures</small></button>
+      <button class="nav-item" data-page="news"><span>📰</span><small>News</small></button>
+      <button class="nav-item" data-page="replays"><span>▶️</span><small>Replays</small></button>
+      <button class="nav-item" data-page="more"><span>☰</span><small>More</small></button>
+    </nav>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
