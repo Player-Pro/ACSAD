@@ -50,3 +50,8 @@ async function loadNews(){
 renderResults();
 renderFixtures();
 loadNews();
+
+// Make the mobile web app installable and cache its shell for faster launches.
+if('serviceWorker' in navigator){
+  window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(error=>console.warn('ACSAD offline shell unavailable:',error.message)));
+}
