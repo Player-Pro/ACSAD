@@ -20,13 +20,17 @@ jobs:
         uses: android-actions/setup-android@v3
       - name: Install Android SDK platform
         run: yes | sdkmanager "platforms;android-35" "build-tools;35.0.0"
+      - name: Set up Gradle
+        run: |
+          curl -L -o gradle.zip https://services.gradle.org/distributions/gradle-8.10.2-bin.zip
+          unzip -q gradle.zip
       - name: Prepare web assets
         run: |
           mkdir -p android/app/src/main/assets
           cp app.html app.css app.js logo.svg manifest.json sw.js supabase.js android/app/src/main/assets/
       - name: Build debug APK
         working-directory: android
-        run: gradle :app:assembleDebug --no-daemon
+        run: ../gradle-8.10.2/bin/gradle :app:assembleDebug --no-daemon
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
