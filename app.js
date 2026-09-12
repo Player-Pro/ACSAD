@@ -1,57 +1,16 @@
 const pages=document.querySelectorAll('.app-page');
 const navItems=document.querySelectorAll('.nav-item');
-
-function showPage(name){
-  pages.forEach(page=>page.classList.toggle('active',page.dataset.page===name));
-  navItems.forEach(item=>item.classList.toggle('active',item.dataset.page===name));
-  window.scrollTo({top:0,behavior:'smooth'});
-}
-
-document.querySelectorAll('[data-page]').forEach(item=>{
-  if(item.classList.contains('app-page')) return;
-  item.addEventListener('click',()=>showPage(item.dataset.page));
-});
-
-document.querySelectorAll('[data-open-page]').forEach(item=>item.addEventListener('click',()=>showPage(item.dataset.openPage)));
-
 const fallbackNews=[
-  {headline:'Socrates crowned 2026 champions',category:'FACTION CARNIVAL • 4 SEPTEMBER 2026',body:"Green has won Alkimos College's 2026 high-school faction carnival by around 300 points.",icon:'🏆'},
-  {headline:'Aristotle athlete wins Champion Boy',category:'INDIVIDUAL',body:'A Year 7 Aristotle athlete collected a ribbon in every event.',icon:'🏅'},
-  {headline:'Plato take team-games trophy',category:'TEAM GAMES',body:'Plato claimed the minor team-games trophy during the 2026 carnival.',icon:'🟡'}
+ {id:'fallback-1',headline:'Socrates crowned 2026 champions',category:'FACTION CARNIVAL • 4 SEPTEMBER 2026',body:"Green has won Alkimos College's 2026 high-school faction carnival by around 300 points.",image_url:'https://images.unsplash.com/photo-1552674605-db6ffd4facb5?auto=format&fit=crop&w=1000&q=80'},
+ {id:'fallback-2',headline:'Aristotle athlete wins Champion Boy',category:'INDIVIDUAL',body:'A Year 7 Aristotle athlete collected a ribbon in every event.',image_url:'https://images.unsplash.com/photo-1461896836934-ffe607ba8211?auto=format&fit=crop&w=1000&q=80'},
+ {id:'fallback-3',headline:'Plato take team-games trophy',category:'TEAM GAMES',body:'Plato claimed the minor team-games trophy during the 2026 carnival.',image_url:'https://images.unsplash.com/photo-1579952363873-27f3bade9f55?auto=format&fit=crop&w=1000&q=80'}
 ];
-
-function renderNews(items){
-  const list=document.getElementById('news-list');
-  list.innerHTML=items.map(item=>`<article class="card news-card"><div class="news-img">${item.icon||'📰'}</div><div class="news-copy"><div class="meta">${escapeHtml(item.category||'ACSAD NEWS')}</div><h2>${escapeHtml(item.headline)}</h2><p>${escapeHtml(item.body||'')}</p></div></article>`).join('');
-}
-
-function renderResults(){
-  document.getElementById('results-list').innerHTML=`<article class="result-card"><div class="result-top"><span>FACTION CARNIVAL</span><span>4 SEP 2026</span></div><div class="result-score">🟢 Socrates — Champions 🏆</div><p class="result-note">2026 Alkimos College high-school faction carnival champions.</p></article><article class="result-card"><div class="result-top"><span>TEAM GAMES</span><span>2026 CARNIVAL</span></div><div class="result-score">🟡 Plato — Trophy</div><p class="result-note">Plato claimed the minor team-games trophy.</p></article>`;
-}
-
-function renderFixtures(){
-  document.getElementById('fixtures-list').innerHTML='<div class="empty-card"><div class="empty-icon">📅</div><h2>No fixtures published yet</h2><p>Upcoming games and events will appear here when they are added to ACSAD.</p></div>';
-}
-
-function escapeHtml(value){return String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
-
-async function loadNews(){
-  renderNews(fallbackNews);
-  if(!window.acsadSupabase) return;
-  try{
-    const {data,error}=await window.acsadSupabase.from('articles').select('headline,category,body,image_url,published_at').order('published_at',{ascending:false}).limit(20);
-    if(error) throw error;
-    if(data&&data.length){
-      renderNews(data.map(article=>({headline:article.headline,category:article.category,body:article.body,icon:article.image_url?'🖼️':'📰'})));
-    }
-  }catch(error){console.warn('ACSAD news sync unavailable:',error.message);}
-}
-
-renderResults();
-renderFixtures();
+let newsCache=[...fallbackNews];
+function showPage(name){pages.forEach(p=>p.classList.toggle('active',p.dataset.page===name));navItems.forEach(i=>i.classList.toggle('active',i.dataset.page===name));window.scrollTo({top:0,behavior:'smooth'});}
+function escapeHtml(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function newsCard(item){return `<button class="news-card" data-article-id="${escapeHtml(item.id)}"><div class="news-img">${item.image_url?`<img src="${escapeHtml(item.image_url)}" alt="">`:'📰'}</div><div class="news-copy"><div class="meta">${escapeHtml(item.category||'ACSAD NEWS')}</div><h2>${escapeHtml(item.headline)}</h2><p>${escapeHtml((item.body||'').length>150?(item.body||'').slice(0,150)+'…':item.body||'')}</p><strong>READ MORE →</strong></div></button>`;}
+function renderNews(items){newsCache=items;document.getElementById('news-list').innerHTML=items.map(newsCard).join('');document.getElementById('home-news').innerHTML=items.slice(0,3).map(newsCard).join('');}
+function openArticle(id){const item=newsCache.find(x=>String(x.id)===String(id));if(!item)return;document.getElementById('article-detail').innerHTML=`<div class="article-image">${item.image_url?`<img src="${escapeHtml(item.image_url)}" alt="">`:'📰'}</div><div class="meta">${escapeHtml(item.category||'ACSAD NEWS')}${item.published_at?' • '+escapeHtml(new Date(item.published_at).toLocaleDateString('en-AU')):''}</div><h1>${escapeHtml(item.headline)}</h1><p class="article-body">${escapeHtml(item.body||'')}</p>`;showPage('article');}
+document.addEventListener('click',e=>{const page=e.target.closest('[data-page]');if(page){showPage(page.dataset.page);return;}const article=e.target.closest('[data-article-id]');if(article)openArticle(article.dataset.articleId);});
+async function loadNews(){renderNews(fallbackNews);if(!window.acsadSupabase)return;try{const {data,error}=await window.acsadSupabase.from('articles').select('id,headline,category,body,image_url,published_at').order('published_at',{ascending:false}).limit(20);if(error)throw error;if(data&&data.length)renderNews(data);}catch(error){console.warn('ACSAD news sync unavailable:',error.message);}}
 loadNews();
-
-// Make the mobile web app installable and cache its shell for faster launches.
-if('serviceWorker' in navigator){
-  window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(error=>console.warn('ACSAD offline shell unavailable:',error.message)));
-}
