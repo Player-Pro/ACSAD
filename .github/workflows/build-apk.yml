@@ -36,3 +36,5 @@ jobs:
         with:
           name: ACSAD-Android
           path: android/app/build/outputs/apk/debug/app-debug.apk
+
+      # Stable 1.1 release build trigger
