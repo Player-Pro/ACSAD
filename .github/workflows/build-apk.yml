@@ -7,7 +7,7 @@ on:
       - main
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   build-apk:
@@ -46,10 +46,15 @@ jobs:
         working-directory: android
         run: ../gradle-8.10.2/bin/gradle :app:assembleDebug --no-daemon --stacktrace
 
-      - name: Upload APK
-        uses: actions/upload-artifact@v4
+      - name: Publish GitHub Release
+        uses: softprops/action-gh-release@v2
         with:
-          name: ACSAD-Android-1.1
-          path: android/app/build/outputs/apk/debug/app-debug.apk
-          if-no-files-found: error
-          retention-days: 30
+          tag_name: acsad-v1.1
+          name: ACSAD Android v1.1
+          body: |
+            ACSAD Android app stable release 1.1.
+
+            Includes the live ACSAD website data, updated app navigation, records, fixtures, results, news, replays, and ACSAD app icon.
+          files: android/app/build/outputs/apk/debug/app-debug.apk
+          overwrite_files: true
+          make_latest: true
