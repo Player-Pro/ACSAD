@@ -2,8 +2,7 @@ name: ACSAD Release APK
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
   workflow_dispatch:
 
 permissions:
@@ -11,13 +10,13 @@ permissions:
 
 jobs:
   release:
+    name: Build and publish ACSAD Android 1.1
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Set up Java
+      - name: Set up Java 17
         uses: actions/setup-java@v4
         with:
           distribution: temurin
@@ -31,7 +30,7 @@ jobs:
           yes | sdkmanager --licenses
           sdkmanager "platforms;android-35" "build-tools;35.0.0"
 
-      - name: Install Gradle
+      - name: Install Gradle 8.10.2
         run: |
           curl -fsSL -o gradle.zip https://services.gradle.org/distributions/gradle-8.10.2-bin.zip
           unzip -q gradle.zip
@@ -45,7 +44,12 @@ jobs:
         working-directory: android
         run: ../gradle-8.10.2/bin/gradle :app:assembleDebug --no-daemon --stacktrace
 
-      - name: Publish release
+      - name: Verify APK exists
+        run: |
+          test -f android/app/build/outputs/apk/debug/app-debug.apk
+          ls -lh android/app/build/outputs/apk/debug/app-debug.apk
+
+      - name: Publish GitHub Release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: acsad-v1.1
