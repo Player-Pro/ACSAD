@@ -12,6 +12,7 @@ jobs:
   release:
     name: Build and publish ACSAD Android 1.1
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -44,17 +45,27 @@ jobs:
         working-directory: android
         run: ../gradle-8.10.2/bin/gradle :app:assembleDebug --no-daemon --stacktrace
 
-      - name: Verify APK exists
+      - name: Verify APK
         run: |
-          test -f android/app/build/outputs/apk/debug/app-debug.apk
+          test -s android/app/build/outputs/apk/debug/app-debug.apk
           ls -lh android/app/build/outputs/apk/debug/app-debug.apk
 
-      - name: Publish GitHub Release
-        uses: softprops/action-gh-release@v2
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
         with:
-          tag_name: acsad-v1.1
-          name: ACSAD Android v1.1
-          body: ACSAD Android stable release 1.1
-          files: android/app/build/outputs/apk/debug/app-debug.apk
-          overwrite_files: true
-          make_latest: true
+          name: ACSAD-Android-1.1
+          path: android/app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Create or update GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          APK="android/app/build/outputs/apk/debug/app-debug.apk"
+          if gh release view acsad-v1.1 >/dev/null 2>&1; then
+            gh release upload acsad-v1.1 "$APK" --clobber
+            gh release edit acsad-v1.1 --title "ACSAD Android v1.1" --notes "ACSAD Android stable release 1.1"
+          else
+            gh release create acsad-v1.1 "$APK" --title "ACSAD Android v1.1" --notes "ACSAD Android stable release 1.1" --latest
+          fi
