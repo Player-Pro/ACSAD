@@ -10,7 +10,7 @@ permissions:
 
 jobs:
   release:
-    name: Build and publish ACSAD Android 1.1
+    name: Build and commit ACSAD Android 1.1
     runs-on: ubuntu-latest
 
     steps:
@@ -45,27 +45,16 @@ jobs:
         working-directory: android
         run: ../gradle-8.10.2/bin/gradle :app:assembleDebug --no-daemon --stacktrace
 
-      - name: Verify APK
+      - name: Copy APK into releases folder
         run: |
-          test -s android/app/build/outputs/apk/debug/app-debug.apk
-          ls -lh android/app/build/outputs/apk/debug/app-debug.apk
+          mkdir -p releases
+          cp android/app/build/outputs/apk/debug/app-debug.apk releases/ACSAD-Android-1.1.apk
+          ls -lh releases/ACSAD-Android-1.1.apk
 
-      - name: Upload APK artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: ACSAD-Android-1.1
-          path: android/app/build/outputs/apk/debug/app-debug.apk
-          if-no-files-found: error
-          retention-days: 30
-
-      - name: Create or update GitHub Release
-        env:
-          GH_TOKEN: ${{ github.token }}
+      - name: Commit APK to repository
         run: |
-          APK="android/app/build/outputs/apk/debug/app-debug.apk"
-          if gh release view acsad-v1.1 >/dev/null 2>&1; then
-            gh release upload acsad-v1.1 "$APK" --clobber
-            gh release edit acsad-v1.1 --title "ACSAD Android v1.1" --notes "ACSAD Android stable release 1.1"
-          else
-            gh release create acsad-v1.1 "$APK" --title "ACSAD Android v1.1" --notes "ACSAD Android stable release 1.1" --latest
-          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add releases/ACSAD-Android-1.1.apk
+          git commit -m "Add ACSAD Android 1.1 APK" || echo "APK unchanged"
+          git push
