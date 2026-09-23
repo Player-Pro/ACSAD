@@ -15,13 +15,17 @@ android {
     }
 }
 
+// Copy the web app from the repository root into the Android asset bundle so
+// both local Gradle builds and CI builds package the same application files.
 tasks.register('syncAcsadWebAssets', Copy) {
-    from(rootProject.projectDir) {
+    from(rootProject.projectDir.parentFile) {
         include 'app.html'
         include 'app.css'
         include 'app.js'
         include 'supabase.js'
         include 'logo.svg'
+        include 'manifest.json'
+        include 'sw.js'
     }
     into(layout.projectDirectory.dir('src/main/assets'))
 }
