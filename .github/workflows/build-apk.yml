@@ -45,7 +45,9 @@ jobs:
       - name: Prepare web assets
         run: |
           mkdir -p android/app/src/main/assets
-          cp app.html app.css app.js logo.svg manifest.json sw.js supabase.js school-countdown.html style.css android/app/src/main/assets/\n          mkdir -p android/app/src/main/assets/audio\n          cp -R audio/. android/app/src/main/assets/audio/
+          cp app.html app.css app.js logo.svg manifest.json sw.js supabase.js school-countdown.html style.css android/app/src/main/assets/
+          mkdir -p android/app/src/main/assets/audio
+          cp -R audio/. android/app/src/main/assets/audio/
 
       - name: Build v1.125 debug APK
         working-directory: android
@@ -63,7 +65,7 @@ jobs:
         with:
           tag_name: acsad-v1.125
           name: ACSAD Android v1.125
-          body: ACSAD Android app stable release 1.1.
+          body: ACSAD Android app release 1.125 with the original school countdown, tappable articles and ACSAD launcher branding.
           files: android/app/build/outputs/apk/debug/app-debug.apk
           overwrite_files: true
           make_latest: true
