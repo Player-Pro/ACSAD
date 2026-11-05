@@ -11,7 +11,7 @@ permissions:
 
 jobs:
   build-apk:
-    name: Build ACSAD 1.1 APK
+    name: Build ACSAD 1.125 APK
     runs-on: ubuntu-latest
 
     steps:
@@ -45,24 +45,24 @@ jobs:
       - name: Prepare web assets
         run: |
           mkdir -p android/app/src/main/assets
-          cp app.html app.css app.js logo.svg manifest.json sw.js supabase.js android/app/src/main/assets/
+          cp app.html app.css app.js logo.svg manifest.json sw.js supabase.js school-countdown.html style.css android/app/src/main/assets/\n          mkdir -p android/app/src/main/assets/audio\n          cp -R audio/. android/app/src/main/assets/audio/
 
-      - name: Build debug APK
+      - name: Build v1.125 debug APK
         working-directory: android
         run: ../gradle-8.10.2/bin/gradle :app:assembleDebug --no-daemon --stacktrace
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
-          name: ACSAD-Android-1.1
+          name: ACSAD-Android-1.125
           path: android/app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
 
       - name: Publish GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: acsad-v1.1
-          name: ACSAD Android v1.1
+          tag_name: acsad-v1.125
+          name: ACSAD Android v1.125
           body: ACSAD Android app stable release 1.1.
           files: android/app/build/outputs/apk/debug/app-debug.apk
           overwrite_files: true
