@@ -21,7 +21,10 @@ tasks.register('syncAcsadWebAssets', Copy) {
     from(rootProject.projectDir.parentFile) {
         include 'app.html'
         include 'app.css'
-        include 'app.js'\n        include 'school-countdown.html'\n        include 'style.css'\n        include 'audio/**'
+        include 'app.js'
+        include 'school-countdown.html'
+        include 'style.css'
+        include 'audio/**'
         include 'supabase.js'
         include 'logo.svg'
         include 'manifest.json'
