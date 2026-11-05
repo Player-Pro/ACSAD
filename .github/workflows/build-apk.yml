@@ -28,10 +28,13 @@ jobs:
       # obsolete SDK package named "tools" (it makes this action fail).
       - name: Set up Android SDK
         uses: android-actions/setup-android@v3
+        with:
+          # "tools" was removed from the Android SDK and causes setup to fail.
+          packages: "platform-tools"
 
       - name: Install Android SDK packages
         run: |
-          yes | sdkmanager --licenses
+          yes | sdkmanager --licenses || true
           sdkmanager --install "platforms;android-35" "build-tools;35.0.0"
 
       - name: Install Gradle 8.10.2
