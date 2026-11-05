@@ -24,12 +24,14 @@ jobs:
           distribution: temurin
           java-version: "17"
 
+      # setup-android installs the command-line tools; do not request the
+      # obsolete SDK package named "tools" (it makes this action fail).
       - name: Set up Android SDK
         uses: android-actions/setup-android@v3
 
       - name: Install Android SDK packages
         run: |
-          yes | sdkmanager --licenses || true
+          yes | sdkmanager --licenses
           sdkmanager --install "platforms;android-35" "build-tools;35.0.0"
 
       - name: Install Gradle 8.10.2
