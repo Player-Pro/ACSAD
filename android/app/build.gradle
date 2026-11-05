@@ -10,8 +10,8 @@ android {
         applicationId 'com.acsad.school'
         minSdk 23
         targetSdk 35
-        versionCode 3
-        versionName '1.1'
+        versionCode 4
+        versionName '1.125'
     }
 }
 
@@ -21,7 +21,7 @@ tasks.register('syncAcsadWebAssets', Copy) {
     from(rootProject.projectDir.parentFile) {
         include 'app.html'
         include 'app.css'
-        include 'app.js'
+        include 'app.js'\n        include 'school-countdown.html'\n        include 'style.css'\n        include 'audio/**'
         include 'supabase.js'
         include 'logo.svg'
         include 'manifest.json'
