@@ -45,7 +45,7 @@ jobs:
       - name: Prepare web assets
         run: |
           mkdir -p android/app/src/main/assets
-          cp app.html app.css app.js logo.svg manifest.json sw.js supabase.js school-countdown.html style.css android/app/src/main/assets/
+          cp app.html app.css app.js app-countdown.js logo.svg manifest.json sw.js supabase.js school-countdown.html style.css android/app/src/main/assets/
           mkdir -p android/app/src/main/assets/audio
           cp -R audio/. android/app/src/main/assets/audio/
 
