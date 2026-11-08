@@ -1,1 +1,66 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ACSAD | Alkimos College Sports & Athletics Digital</title><link rel="stylesheet" href="style.css"></head><body><header><div><img class="site-logo" src="logo.svg" alt="ACSAD — School Sports Media"><div class="tag">ALKIMOS COLLEGE SPORTS & ATHLETICS DIGITAL</div></div><nav><a href="index.html">Home</a><a href="news.html">News</a><a href="results.html">Results</a><a href="fixtures.html">Fixtures</a><a href="records.html">Records</a><a href="carnival.html">Carnival</a><a href="fame.html">FAME Gaming</a><a href="replays.html">Replays</a><a href="school-countdown.html">School Countdown</a><a href="admin.html">Admin</a></nav></header><section class="hero"><div class="eyebrow">ACSAD • SCHOOL SPORTS MEDIA</div><h1>ALKIMOS COLLEGE SPORT</h1><p>News, results, statistics, records and coverage from Alkimos College sport.</p><a class="btn gold" href="news.html">VIEW LATEST NEWS</a></section><main><section class="section"><div class="head"><h2>Latest News</h2><span>ACSAD NEWS DESK</span></div><div id="latestNews" class="grid3"></div></section><section class="section"><div class="head"><h2>Featured Result</h2><span>2026</span></div><div class="card result"><h2>🟢 SOCRATES — CHAMPIONS 🏆</h2><p>2026 Alkimos College high-school faction carnival champions.</p><a class="btn" href="results.html">VIEW RESULTS</a></div></section><section class="section"><div class="grid4"><div class="card"><h3>📊 Results</h3><p>Scores and competition outcomes.</p><a class="btn" href="results.html">OPEN</a></div><div class="card"><h3>📅 Fixtures</h3><p>Upcoming games and events.</p><a class="btn" href="fixtures.html">OPEN</a></div><div class="card"><h3>🏆 Records</h3><p>ACSAD record database.</p><a class="btn" href="records.html">OPEN</a></div><div class="card"><h3>🎥 Replays</h3><p>Available match recordings.</p><a class="btn" href="replays.html">OPEN</a></div></div></section></main><footer><img class="footer-logo" src="logo.svg" alt="ACSAD — School Sports Media"><p>Alkimos College Sports & Athletics Digital</p><p>Independent school sports media and statistics platform.</p></footer><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="supabase.js"></script><script>const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));async function loadLatest(){const el=document.getElementById('latestNews');const{data,error}=await supabaseClient.from('articles').select('*').order('published_at',{ascending:false}).limit(3);if(error||!data.length){el.innerHTML='<p class="note">No latest news available.</p>';return}el.innerHTML=data.map(x=>`<a href="article.html?id=${encodeURIComponent(x.id)}" style="text-decoration:none;color:inherit"><article class="card news"><div class="newsimg">${x.image_url?`<img src="${esc(x.image_url)}" alt="" style="width:100%;height:100%;object-fit:cover;border-radius:10px">`:'📰'}</div><div class="newsbody"><div class="meta">${esc(x.category)} • ${esc(new Date(x.published_at).toLocaleDateString('en-AU'))}</div><h3>${esc(x.headline)}</h3><p>${esc(x.body.length>180?x.body.slice(0,180)+'…':x.body)}</p><strong>READ MORE →</strong></div></article></a>`).join('')}loadLatest();supabaseClient.channel('acsad-live-index').on('postgres_changes',{event:'*',schema:'public',table:'articles'},loadLatest).subscribe();setInterval(loadLatest,45000);</script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#ffffff"><meta name="description" content="ACSAD — Alkimos College Sports & Athletics Digital. School sport news, fixtures, results, records and replays.">
+<title>ACSAD | Alkimos College Sports & Athletics Digital</title>
+<link rel="icon" href="logo.svg" type="image/svg+xml"><link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <div><a href="index.html" aria-label="ACSAD home"><img class="site-logo" src="logo.svg" alt="ACSAD — School Sports Media"></a><div><div class="brand">ACSAD<b>.</b></div><div class="tag">ALKIMOS COLLEGE • SCHOOL SPORT</div></div></div>
+  <nav aria-label="Main navigation"><a href="index.html" aria-current="page">Home</a><a href="news.html">News</a><a href="fixtures.html">Fixtures</a><a href="results.html">Results</a><a href="records.html">Records</a><a href="replays.html">Replays</a><a href="school-countdown.html">Countdown</a><a href="admin.html">Admin</a></nav>
+</header>
+<main>
+<section class="hero"><div class="hero-inner">
+  <div class="hero-school-mark"><img src="logo.svg" alt="ACSAD logo"><span class="eyebrow">ALKIMOS COLLEGE • SCHOOL SPORTS MEDIA</span></div>
+  <h1>School sport.<br>Every story matters.</h1>
+  <p>Your home for Alkimos College sport — follow the fixtures, catch the results, read the latest school sports news and celebrate student achievements.</p>
+  <div class="hero-actions"><a class="btn gold" href="fixtures.html">VIEW FIXTURES →</a><a class="btn" href="news.html" style="background:#ffffff20;border:1px solid #ffffff55">LATEST NEWS</a></div>
+</div></section>
+
+<section class="section">
+  <div class="head"><h2>ACSAD at a glance</h2><span>ALKIMOS COLLEGE SPORT</span></div>
+  <div class="feature-strip"><div class="feature-stat"><strong>SPORT</strong><span>School teams and competitions</span></div><div class="feature-stat"><strong>NEWS</strong><span>Stories from around the college</span></div><div class="feature-stat"><strong>RESULTS</strong><span>Scores, stats and achievements</span></div></div>
+</section>
+
+<div class="home-columns">
+ <section>
+  <div class="section" style="margin-top:0"><div class="head"><h2>Latest school sports news</h2><a href="news.html">All news →</a></div><div id="latestNews" class="grid3"><div class="empty">Loading the latest ACSAD stories…</div></div></div>
+  <div class="section"><div class="head"><h2>Recent results</h2><a href="results.html">All results →</a></div><div id="recentResults" class="stack"><div class="empty">Loading results…</div></div></div>
+ </section>
+ <aside class="stack">
+  <section><div class="head"><h2>Upcoming fixtures</h2><a href="fixtures.html">Full calendar →</a></div><div id="upcomingFixtures" class="stack"><div class="empty">Loading fixtures…</div></div></section>
+  <section class="card"><div class="meta">THE ACSAD COVERAGE DESK</div><h2>More than the scoreboard.</h2><p>From match-day updates to school sporting records, ACSAD brings Alkimos College sport together in one place.</p><a class="btn" href="records.html">EXPLORE SCHOOL RECORDS</a></section>
+ </aside>
+</div>
+
+<section class="section"><div class="head"><h2>Explore ACSAD</h2><span>YOUR SCHOOL SPORT HUB</span></div>
+<div class="grid4">
+ <a class="quick-link" href="news.html"><span class="quick-icon">📰</span><span><strong>News</strong><small>Stories and updates</small></span></a>
+ <a class="quick-link" href="fixtures.html"><span class="quick-icon">📅</span><span><strong>Fixtures</strong><small>What's coming up</small></span></a>
+ <a class="quick-link" href="results.html"><span class="quick-icon">🏆</span><span><strong>Results</strong><small>Scores and match details</small></span></a>
+ <a class="quick-link" href="replays.html"><span class="quick-icon">▶</span><span><strong>Replays</strong><small>Watch available coverage</small></span></a>
+</div></section>
+</main>
+<footer><img class="footer-logo" src="logo.svg" alt="ACSAD — School Sports Media"><p><strong>Alkimos College Sports & Athletics Digital</strong></p><p>Independent school sports media and statistics platform.</p><p><a href="admin.html" style="color:#c3d9fa">ACSAD Admin</a></p></footer>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="supabase.js"></script>
+<script>
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
+const fmt=v=>{if(!v)return 'Date to be confirmed';const d=new Date(v+'T00:00:00');return Number.isNaN(d.getTime())?esc(v):d.toLocaleDateString('en-AU',{weekday:'short',day:'numeric',month:'short',year:'numeric'})};
+async function loadHome(){
+ const newsEl=document.getElementById('latestNews'),fixEl=document.getElementById('upcomingFixtures'),resEl=document.getElementById('recentResults');
+ const tasks=await Promise.allSettled([
+  supabaseClient.from('articles').select('id,headline,category,body,image_url,published_at').order('published_at',{ascending:false}).limit(3),
+  supabaseClient.from('fixtures').select('*').order('fixture_date',{ascending:true,nullsFirst:false}).limit(4),
+  supabaseClient.from('results').select('*').order('result_date',{ascending:false,nullsFirst:false}).limit(3)
+ ]);
+ const [news,fixtures,results]=tasks;
+ if(news.status==='fulfilled'&&!news.value.error){const rows=news.value.data||[];newsEl.innerHTML=rows.length?rows.map(x=>'<a href="article.html?id='+encodeURIComponent(x.id)+'" class="card news"><div class="newsimg">'+(x.image_url?'<img src="'+esc(x.image_url)+'" alt="">':'📰')+'</div><div class="newsbody"><div class="meta">'+esc(x.category||'ACSAD NEWS')+' • '+(x.published_at?new Date(x.published_at).toLocaleDateString('en-AU'):'')+'</div><h3>'+esc(x.headline)+'</h3><p>'+esc((x.body||'').slice(0,125))+((x.body||'').length>125?'…':'')+'</p><strong>READ STORY →</strong></div></a>').join(''):'<div class="empty">No school sports stories have been published yet. Check back soon.</div>'}else{newsEl.innerHTML='<div class="empty">News is temporarily unavailable. Please try again shortly.</div>'}
+ if(fixtures.status==='fulfilled'&&!fixtures.value.error){const rows=fixtures.value.data||[];fixEl.innerHTML=rows.length?rows.map(x=>'<article class="content-card"><div class="meta">'+esc(x.sport||'SCHOOL SPORT')+' • '+esc(x.status||'SCHEDULED')+'</div><h2 style="font-size:17px;margin:8px 0">'+esc(x.home_team||'Alkimos College')+' <span style="color:#1769e8">vs</span> '+esc(x.away_team||x.opponent||'Opponent')+'</h2><p style="margin:0;font-size:12px">'+esc(x.date_label||fmt(x.fixture_date))+'</p>'+(x.details?'<p style="font-size:12px;margin:8px 0 0">'+esc(x.details)+'</p>':'')+'</article>').join(''):'<div class="empty">No upcoming fixtures are listed right now.</div>'}else{fixEl.innerHTML='<div class="empty">Fixtures are temporarily unavailable.</div>'}
+ if(results.status==='fulfilled'&&!results.value.error){const rows=results.value.data||[];resEl.innerHTML=rows.length?rows.map(x=>'<a class="content-card" href="result.html?id='+encodeURIComponent(x.id)+'" style="display:block;color:inherit"><div class="meta">'+esc(x.sport||'SCHOOL SPORT')+' • '+esc(x.event||'RESULT')+'</div><div class="score-line" style="margin:9px 0"><strong>'+esc(x.home_team||'Alkimos')+'</strong><strong>'+esc(x.home_score??'—')+' – '+esc(x.away_score??'—')+'</strong><strong>'+esc(x.away_team||'Opponent')+'</strong></div><p style="margin:0;font-size:12px">'+esc(x.date_label||fmt(x.result_date))+' · View match details →</p></a>').join(''):'<div class="empty">No results have been published yet.</div>'}else{resEl.innerHTML='<div class="empty">Results are temporarily unavailable.</div>'}
+}
+loadHome();
+supabaseClient.channel('acsad-live-home').on('postgres_changes',{event:'*',schema:'public',table:'articles'},loadHome).on('postgres_changes',{event:'*',schema:'public',table:'fixtures'},loadHome).on('postgres_changes',{event:'*',schema:'public',table:'results'},loadHome).subscribe();
+</script>
+</body></html>
