@@ -8,12 +8,14 @@
 <title>ACSAD | Competition Edition</title>
 <link rel="icon" href="logo.svg" type="image/svg+xml">
 <link rel="stylesheet" href="style.css">
-</head>
+<style>
+.competition-countdown-feature{display:grid;grid-template-columns:1.5fr .7fr;align-items:center;gap:32px;margin:34px 0;padding:clamp(24px,4vw,42px);border:1px solid rgba(244,197,66,.24);border-radius:20px;background:linear-gradient(115deg,#101d2b,#17283a);color:#fff;overflow:hidden}.countdown-feature-copy h2{font-size:clamp(27px,4vw,42px);line-height:1.08;margin:10px 0}.countdown-feature-copy p{max-width:570px;color:#c4d0dc;line-height:1.65}.countdown-feature-date{display:flex;flex-direction:column;gap:5px;margin:20px 0}.countdown-feature-date span{font-size:10px;letter-spacing:1.8px;color:#f4c542;font-weight:800}.countdown-feature-date strong{font-size:14px;letter-spacing:.5px}.countdown-feature-art{min-height:190px;position:relative;display:grid;place-items:center}.countdown-feature-ring{width:170px;height:170px;border:1px solid rgba(244,197,66,.65);border-radius:50%;box-shadow:0 0 0 18px rgba(244,197,66,.05),0 0 0 38px rgba(244,197,66,.035)}.countdown-feature-bell{position:absolute;font-size:74px;color:#f4c542}.countdown-feature-art small{position:absolute;bottom:0;color:#c4d0dc;letter-spacing:3px;font-weight:800}@media(max-width:650px){.competition-countdown-feature{grid-template-columns:1fr}.countdown-feature-art{min-height:150px}.countdown-feature-ring{width:125px;height:125px}}
+</style></head>
 <body class="competition-edition">
 <header class="competition-header">
   <a class="competition-brand" href="index.html"><img src="logo.svg" alt="ACSAD logo"><span><strong>ACSAD<span>.</span></strong><small>COMPETITION EDITION</small></span></a>
   <nav aria-label="Competition navigation">
-    <a href="index.html" aria-current="page">Home</a><a href="competition-fixtures.html">Fixtures</a><a href="competition-results.html">Results</a><a href="competition-ladder.html">Ladder</a><a class="competition-admin" href="admin.html">Admin ↗</a>
+    <a href="index.html" aria-current="page">Home</a><a href="competition-fixtures.html">Fixtures</a><a href="competition-results.html">Results</a><a href="competition-ladder.html">Ladder</a><a href="school-countdown.html">School Countdown</a><a class="competition-admin" href="admin.html">Admin ↗</a>
   </nav>
 </header>
 <main class="competition-main">
@@ -33,6 +35,12 @@
     <div><span class="status-index">01</span><span><small>CAPTAIN SELECTION</small><strong>TO BE CONFIRMED</strong></span></div>
     <div><span class="status-index">02</span><span><small>PLAYER DRAFT</small><strong>TO BE CONFIRMED</strong></span></div>
     <div><span class="status-index">03</span><span><small>TEAM ROSTERS</small><strong>COMING SOON</strong></span></div>
+  </section>
+
+
+  <section class="competition-countdown-feature" aria-labelledby="school-countdown-title">
+    <div class="countdown-feature-copy"><span class="competition-label">A DIFFERENT KIND OF COUNTDOWN</span><h2 id="school-countdown-title">The final bell is getting closer.</h2><p>Keep track of the time until the end of the 2026 school year, with the minute bell and scheduled countdown soundtrack.</p><div class="countdown-feature-date"><span>FINAL BELL</span><strong>17 DEC 2026 · 2:51 PM AWST</strong></div><a class="competition-button" href="school-countdown.html">OPEN SCHOOL COUNTDOWN <b>↗</b></a></div>
+    <div class="countdown-feature-art" aria-hidden="true"><span class="countdown-feature-ring"></span><span class="countdown-feature-bell">♧</span><small>17·12·26</small></div>
   </section>
 
   <section class="competition-section" id="format">
