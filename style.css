@@ -39,3 +39,5 @@
 .odds-update-note{display:flex;align-items:center;gap:12px;padding:16px;background:#10243a;border:1px solid var(--c-line);border-radius:10px;color:#b8c8d8;font-size:12px}
 .gaming-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:25px}.gaming-card{min-height:230px;display:flex;flex-direction:column;align-items:flex-start}.gaming-card .game-icon{display:grid;place-items:center;width:54px;height:54px;margin-bottom:22px;border-radius:13px;background:#d9b76818;color:var(--c-gold);font-size:25px}.gaming-card h2{margin:0 0 8px;font:800 23px Manrope}.gaming-card p{color:var(--c-muted);font-size:13px;line-height:1.7}.gaming-card .game-status{margin-top:auto;padding-top:15px;color:var(--c-gold);font-size:9px;font-weight:900;letter-spacing:1.4px}
 @media(max-width:760px){.odds-grid{grid-template-columns:1fr}.odds-row{grid-template-columns:minmax(110px,1fr) 1.2fr 48px;gap:9px}.gaming-grid{grid-template-columns:1fr}}
+
+.team-day-status{display:inline-block;padding:7px 10px;border:1px solid #d9b76855;border-radius:20px;color:var(--c-gold);font-size:9px;font-weight:900;letter-spacing:1px}
