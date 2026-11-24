@@ -80,16 +80,17 @@
 .acsad-intro-controls{position:absolute;left:20px;right:20px;bottom:20px;display:flex;justify-content:space-between;align-items:center;gap:16px;color:#fff;font:600 13px/1.4 system-ui,sans-serif}
 .acsad-intro-controls label{display:flex;align-items:center;gap:9px;cursor:pointer}
 .acsad-intro-controls input{width:17px;height:17px;accent-color:#e21b2d}
-#acsad-intro-skip{border:1px solid #ffffff70;border-radius:999px;background:#ffffff12;color:#fff;padding:11px 18px;font-weight:800;letter-spacing:.5px;cursor:pointer}
+#acsad-intro-play{display:none;border:0;border-radius:999px;background:#e21b2d;color:#fff;padding:12px 18px;font-weight:900;letter-spacing:.5px;cursor:pointer}#acsad-intro-skip{border:1px solid #ffffff70;border-radius:999px;background:#ffffff12;color:#fff;padding:11px 18px;font-weight:800;letter-spacing:.5px;cursor:pointer}
 #acsad-intro-skip:hover{background:#ffffff28}
 @media(max-width:600px){.acsad-intro-controls{left:12px;right:12px;bottom:12px;align-items:flex-end;font-size:12px}#acsad-intro-skip{padding:10px 14px}}
 </style>
 <div id="acsad-intro-overlay" aria-label="ACSAD SEPEP competition intro">
-  <video id="acsad-intro-video" autoplay muted playsinline preload="auto">
+  <video id="acsad-intro-video" autoplay playsinline preload="auto">
     <source src="images/lv_0_20261124162340.mp4" type="video/mp4">
   </video>
   <div class="acsad-intro-controls">
     <label><input id="acsad-intro-repeat" type="checkbox"> Play intro on every visit</label>
+    <button id="acsad-intro-play" type="button">PLAY INTRO WITH SOUND</button>
     <button id="acsad-intro-skip" type="button">SKIP INTRO ↗</button>
   </div>
 </div>
@@ -99,7 +100,8 @@
   const video = document.getElementById('acsad-intro-video');
   const repeat = document.getElementById('acsad-intro-repeat');
   const skip = document.getElementById('acsad-intro-skip');
-  if (!overlay || !video || !repeat || !skip) return;
+  const playButton = document.getElementById('acsad-intro-play');
+  if (!overlay || !video || !repeat || !skip || !playButton) return;
   const seenKey = 'acsadSepepIntroSeen';
   const repeatKey = 'acsadSepepIntroRepeat';
   let shouldPlay = false;
@@ -121,13 +123,18 @@
     try { localStorage.setItem(seenKey,'true'); } catch(e) {}
   }
   skip.addEventListener('click', finishIntro);
+  playButton.addEventListener('click', function(){
+    video.muted = false;
+    video.play().then(function(){ playButton.style.display = 'none'; }).catch(function(){ playButton.textContent = 'TAP TO TRY AGAIN'; });
+  });
   video.addEventListener('ended', finishIntro);
   video.addEventListener('error', finishIntro, {once:true});
   if (shouldPlay) {
     overlay.classList.add('is-visible');
     overlay.setAttribute('aria-hidden','false');
+    video.muted = false;
     const playAttempt = video.play();
-    if (playAttempt && typeof playAttempt.catch === 'function') playAttempt.catch(function(){ finishIntro(); });
+    if (playAttempt && typeof playAttempt.catch === 'function') playAttempt.catch(function(){ playButton.style.display = 'inline-block'; });
   }
 })();
 </script>
